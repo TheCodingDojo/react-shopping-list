@@ -6,25 +6,33 @@ import Input from "./Input";
 
 const NewItem = ({ addItem }) => {
   const defaultQuantity = 1,
-    defaultPrice = 0;
+    defaultPrice = 0,
+    defaultCategory = "Misc";
 
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(defaultQuantity);
   const [price, setPrice] = useState(defaultPrice);
+  const [category, setCategory] = useState(defaultCategory);
 
   function handleSubmit(e) {
     e.preventDefault();
 
     addItem({
       name,
-      quantity: +quantity, // convert to num shorthand
-      price: +price,
+      /**
+       * Or fallback in case of deletion of default value since these are
+       * optional metadata.
+       */
+      category: category || defaultCategory,
+      quantity: +quantity || defaultQuantity,
+      price: +price || defaultPrice,
       pending: true,
     });
 
     setName("");
     setQuantity(defaultQuantity);
     setPrice(defaultPrice);
+    setCategory(defaultCategory);
   }
 
   const Title = styled.h4`
@@ -55,6 +63,13 @@ const NewItem = ({ addItem }) => {
               value={name}
               type="text"
               onChange={(e) => setName(e.target.value)}
+            />
+
+            <label>Category</label>
+            <Input
+              value={category}
+              type="text"
+              onChange={(e) => setCategory(e.target.value)}
             />
 
             <label>Quantity</label>
