@@ -38,7 +38,7 @@ const NewItem = ({ addItem }) => {
   const Button = styled.button`
     font-size: 1em;
     padding: 0.25em 1em;
-    border: 2px solid lightsteelblue;
+    border: 2px solid slateblue;
     border-radius: 3px;
     background: transparent;
   `;

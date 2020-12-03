@@ -13,7 +13,8 @@ export const Row = styled.div`
 
 export const Col = styled.div`
   flex: ${(props) => props.size};
-  padding: 15px;
+  padding: 20px;
+  border-radius: 3px;
 `;
 
 export const ColShadow = styled(Col)`

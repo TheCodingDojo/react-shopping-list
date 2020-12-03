@@ -34,6 +34,7 @@ function App() {
     <Container>
       <GlobalStyle />
       <Title>Shopping List</Title>
+      <hr />
       <NewItem addItem={addItem} />
       <Grid>
         <Row>
