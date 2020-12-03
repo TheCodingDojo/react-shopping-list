@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
-import { Container } from "./components/Container";
+import Container from "./components/Container";
 import { Grid, Row, Col } from "./components/Grid";
-import { NewItem } from "./components/NewItem";
+import NewItem from "./components/NewItem";
 
 function App() {
   const [items, setItems] = useState([]);

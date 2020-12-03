@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Input = styled.input`
+const Input = styled.input`
   display: block;
   padding: 0.5em;
   margin: 0.5em 0 1em 0;
@@ -13,3 +13,5 @@ export const Input = styled.input`
     box-shadow: 0px 0px 3px blue;
   }
 `;
+
+export default Input;

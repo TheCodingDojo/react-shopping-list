@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 import { Grid, Row, ColShadow } from "./Grid";
-import { Input } from "./Input";
+import Input from "./Input";
 
-export const NewItem = ({ addItem }) => {
+const NewItem = ({ addItem }) => {
   const defaultQuantity = 1,
     defaultPrice = 0;
 
@@ -80,3 +80,5 @@ export const NewItem = ({ addItem }) => {
     </form>
   );
 };
+
+export default NewItem;
