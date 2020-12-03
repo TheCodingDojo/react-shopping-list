@@ -33,6 +33,10 @@ function App() {
   // To avoid having to both items and setItems as props of NewItem.
   const addItem = (item) => setItems([item, ...items]);
 
+  items.sort((a, b) =>
+    a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+  );
+
   return (
     <Container>
       <GlobalStyle />
