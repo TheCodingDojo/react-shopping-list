@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 
 import Container from "./components/Container";
-import { Grid, Row, Col } from "./components/Grid";
+import { Grid, Row, ColShadow } from "./components/Grid";
 import NewItem from "./components/NewItem";
 
 function App() {
@@ -38,12 +38,12 @@ function App() {
       <NewItem addItem={addItem} />
       <Grid>
         <Row>
-          <Col size={1}>
+          <ColShadow size={1}>
             <TitleMd>Pending Items</TitleMd>
-          </Col>
-          <Col size={1}>
+          </ColShadow>
+          <ColShadow size={1}>
             <TitleMd>Shopping Cart</TitleMd>
-          </Col>
+          </ColShadow>
         </Row>
       </Grid>
     </Container>

@@ -19,4 +19,5 @@ export const Col = styled.div`
 
 export const ColShadow = styled(Col)`
   box-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.1);
+  margin: 0 5px;
 `;
