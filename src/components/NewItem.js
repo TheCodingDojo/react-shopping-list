@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 
-import { Grid, Row, ColShadow } from "./Grid";
-import Input from "./Input";
+import { Grid, Row, ColShadow } from "./StyledGrid";
+import { Input } from "./StyledInputs";
+import { Title4 } from "./StyledTitles";
+import { BtnPrimary } from "./StyledButtons.js";
+import { Hr } from "./StyledHrs";
 
 const NewItem = ({ addItem }) => {
   const defaultQuantity = 1,
@@ -35,28 +37,12 @@ const NewItem = ({ addItem }) => {
     setCategory(defaultCategory);
   }
 
-  const Title = styled.h4`
-    text-align: center;
-  `;
-
-  const Hr = styled.hr`
-    margin: 10px 0;
-  `;
-
-  const Button = styled.button`
-    font-size: 1em;
-    padding: 0.25em 1em;
-    border: 2px solid slateblue;
-    border-radius: 3px;
-    background: transparent;
-  `;
-
   return (
     <form onSubmit={handleSubmit}>
       <Grid>
         <Row justifyContent="center">
           <ColShadow>
-            <Title>New Item</Title>
+            <Title4 center>New Item</Title4>
             <Hr />
             <label>Name</label>
             <Input
@@ -87,7 +73,7 @@ const NewItem = ({ addItem }) => {
             />
 
             <div>
-              <Button disabled={name.length < 2}>Submit</Button>
+              <BtnPrimary disabled={name.length < 2}>Submit</BtnPrimary>
             </div>
           </ColShadow>
         </Row>
