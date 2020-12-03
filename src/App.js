@@ -1,14 +1,25 @@
 import React, { useState } from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from "styled-components";
 
 import Container from "./components/Container";
-import { Grid, Row, Col } from "./components/Grid";
+import { Title, TitleBorderBot } from "./components/StyledTitles";
+import { Grid, Row, Col } from "./components/StyledGrid";
 import NewItem from "./components/NewItem";
 import Item from "./components/Item";
 
 function App() {
   const [items, setItems] = useState([]);
   const [itemToEdit, setItemToEdit] = useState(null);
+
+  function togglePending(selectedItem) {
+    setItems(
+      items.map((item) =>
+        item === selectedItem
+          ? { ...selectedItem, pending: !selectedItem.pending }
+          : item
+      )
+    );
+  }
 
   // Since this is a small project, otherwise styled-reset pkg could be used.
   const GlobalStyle = createGlobalStyle`
@@ -22,19 +33,6 @@ function App() {
   // To avoid having to both items and setItems as props of NewItem.
   const addItem = (item) => setItems([item, ...items]);
 
-  const Title = styled.h1`
-    text-align: center;
-    margin-bottom: 15px;
-  `;
-
-  const ListTitle = styled.h3`
-    text-align: center;
-    margin-bottom: 15px;
-    padding: 1rem;
-    border-bottom: 1px solid ${(props) => props.bottomBorderColor || "black"};
-    box-shadow: 0 5px 2px -2px rgba(0, 0, 0, 0.075);
-  `;
-
   return (
     <Container>
       <GlobalStyle />
@@ -44,17 +42,32 @@ function App() {
       <Grid>
         <Row>
           <Col size={0.5}>
-            <ListTitle bottomBorderColor="orange">Pending Items</ListTitle>
+            <TitleBorderBot bottomBorderColor="orange">
+              Pending Items
+            </TitleBorderBot>
             {items
               .filter((item) => item.pending)
               .map((item, i) => (
-                <Row justifyContent="center">
-                  <Item key={i} item={item} setItemToEdit={setItemToEdit} />
+                <Row key={i} justifyContent="center">
+                  <div onClick={(e) => togglePending(item)}>
+                    <Item item={item} setItemToEdit={setItemToEdit} />
+                  </div>
                 </Row>
               ))}
           </Col>
           <Col size={0.5}>
-            <ListTitle bottomBorderColor="slateblue">Shopping Cart</ListTitle>
+            <TitleBorderBot bottomBorderColor="slateblue">
+              Shopping Cart
+            </TitleBorderBot>
+            {items
+              .filter((item) => !item.pending)
+              .map((item, i) => (
+                <Row key={i} justifyContent="center">
+                  <div onClick={(e) => togglePending(item)}>
+                    <Item item={item} setItemToEdit={setItemToEdit} />
+                  </div>
+                </Row>
+              ))}
           </Col>
         </Row>
       </Grid>
