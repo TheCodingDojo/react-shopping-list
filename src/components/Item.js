@@ -14,12 +14,12 @@ const TitleLineThrough = styled.h4`
 `;
 
 const Item = ({ item, itemToEdit, setItemToEdit, saveEdit }) => {
-  const { name, quantity, price, category, pending } = item;
+  const { name, description, points, category, pending } = item;
 
   const [editedName, setEditedName] = useState(name);
   const [editedCategory, setEditedCategory] = useState(category);
-  const [editedQuantity, setEditedQuantity] = useState(quantity);
-  const [editedPrice, setEditedPrice] = useState(price);
+  const [editedDescription, setEditedDescription] = useState(description);
+  const [editedPoints, setEditedPoints] = useState(points);
 
   function save(e) {
     e.preventDefault();
@@ -27,8 +27,8 @@ const Item = ({ item, itemToEdit, setItemToEdit, saveEdit }) => {
     const editedItem = {
       name: editedName,
       category: editedCategory,
-      quantity: +editedQuantity || 1,
-      price: +editedPrice || 0,
+      description: editedDescription,
+      points: +editedPoints || 0,
       pending,
     };
 
@@ -51,16 +51,16 @@ const Item = ({ item, itemToEdit, setItemToEdit, saveEdit }) => {
             onChange={(e) => setEditedCategory(e.target.value)}
           />
 
-          <label>Quantity:</label>
+          <label>description:</label>
           <Input
-            value={editedQuantity}
-            onChange={(e) => setEditedQuantity(e.target.value)}
+            value={editedDescription}
+            onChange={(e) => setEditedDescription(e.target.value)}
           />
 
-          <label>Price:</label>
+          <label>Points:</label>
           <Input
-            value={editedPrice}
-            onChange={(e) => setEditedPrice(e.target.value)}
+            value={editedPoints}
+            onChange={(e) => setEditedPoints(e.target.value)}
           />
 
           <BtnPrimary
@@ -77,8 +77,8 @@ const Item = ({ item, itemToEdit, setItemToEdit, saveEdit }) => {
           ) : (
             <TitleLineThrough>{name}</TitleLineThrough>
           )}
-          <p>Quantity: {quantity}</p>
-          <p>Price: {price}</p>
+          <p>Description: {description}</p>
+          <p>points: {points}</p>
           {!pending && <p>Category: {category}</p>}
           <BtnWarning
             onClick={(e) => {

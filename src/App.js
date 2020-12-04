@@ -49,8 +49,8 @@ function App() {
 
     const newItem = {
       name: searchName,
-      price: 0,
-      quantity: 1,
+      points: 0,
+      description: "",
       category: "Misc",
       pending: true,
     };
@@ -96,7 +96,7 @@ function App() {
   const categoryTable = searchItems
     .filter((item) => item.pending)
     .reduce((table, item) => {
-      subTotal += item.price;
+      subTotal += item.points;
 
       const titleCaseCat = item.category
         .toLowerCase()
@@ -121,7 +121,7 @@ function App() {
     <Container>
       <GlobalStyle />
 
-      <Title>Shopping List</Title>
+      <Title>Todos</Title>
       <hr />
       <Grid>
         <Row justifyContent="center">
@@ -169,7 +169,7 @@ function App() {
 
           <Col size={1}>
             <Title2BorderBot bottomBorderColor="slateblue">
-              Shopping Cart
+              Completed
             </Title2BorderBot>
             <Row>
               {searchItems

@@ -1,6 +1,6 @@
 # Shopping List Interview Challenge
 
-- The original challenge text has had the "entities" renamed but the the concept of the challenge remains the same.
+- The original challenge text has had the entities and fields renamed but everything else is verbatim.
 
 ## Requirements
 
