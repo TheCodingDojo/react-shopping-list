@@ -143,7 +143,7 @@ function App() {
             {alphabeticalCategories.map((cat, catIdx) => {
               return (
                 <section key={catIdx}>
-                  <TitleCategory color="orange">{cat}</TitleCategory>
+                  <TitleCategory color="darkorange">{cat}</TitleCategory>
                   {/* row of category's items */}
                   <Row>
                     {categoryTable[cat].map((item, itemIdx) => (
