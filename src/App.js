@@ -169,7 +169,7 @@ function App() {
 
           <Col size={1}>
             <Title2BorderBot bottomBorderColor="slateblue">
-              Pending Items
+              Shopping Cart
             </Title2BorderBot>
             <Row>
               {searchItems
