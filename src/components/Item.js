@@ -79,6 +79,7 @@ const Item = ({ item, itemToEdit, setItemToEdit, saveEdit }) => {
           )}
           <p>Quantity: {quantity}</p>
           <p>Price: {price}</p>
+          {!pending && <p>Category: {category}</p>}
           <BtnWarning
             onClick={(e) => {
               // stop the click event from triggering the parent's onClick
