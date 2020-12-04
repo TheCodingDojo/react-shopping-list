@@ -64,7 +64,7 @@ const Item = ({ item, itemToEdit, setItemToEdit, saveEdit }) => {
           />
 
           <BtnPrimary
-            disabled={editedName.length <= 1 && editedCategory.length <= 1}
+            disabled={editedName.length <= 1 || editedCategory.length <= 1}
           >
             Save
           </BtnPrimary>
