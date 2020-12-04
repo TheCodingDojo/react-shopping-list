@@ -29,6 +29,7 @@ const Item = ({ item, itemToEdit, setItemToEdit, saveEdit }) => {
       category: editedCategory,
       quantity: +editedQuantity || 1,
       price: +editedPrice || 0,
+      pending,
     };
 
     saveEdit(item, editedItem);
