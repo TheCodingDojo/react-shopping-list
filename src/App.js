@@ -12,6 +12,15 @@ import { Input } from "./components/StyledInputs";
 import { BtnPrimary } from "./components/StyledButtons";
 import Item from "./components/Item";
 
+// Since this is a small project, otherwise styled-reset pkg could be used.
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+`;
+
 function App() {
   const [items, setItems] = useState([]);
   const [searchItems, setSearchItems] = useState([]);
@@ -73,15 +82,6 @@ function App() {
   searchItems.sort((a, b) =>
     a.name.toLowerCase().localeCompare(b.name.toLowerCase())
   );
-
-  // Since this is a small project, otherwise styled-reset pkg could be used.
-  const GlobalStyle = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-`;
 
   let subTotal = 0;
 
