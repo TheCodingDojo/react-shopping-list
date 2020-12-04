@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Title = styled.h1`
   text-align: center;
-  margin-bottom: 15px;
+  margin: 15px 0;
 `;
 
 export const Title2BorderBot = styled.h2`
