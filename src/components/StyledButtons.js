@@ -6,7 +6,7 @@ export const BtnDefault = styled.button`
   border: 2px solid gray;
   border-radius: 3px;
   background: transparent;
-  margin-right: 5px;
+  margin: 5px;
   &:hover {
     background: gray;
   }
