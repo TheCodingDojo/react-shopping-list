@@ -1,15 +1,54 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createGlobalStyle } from "styled-components";
 
 import Container from "./components/Container";
-import { Title, TitleBorderBot } from "./components/StyledTitles";
+import {
+  Title,
+  Title2BorderBot,
+  TitleCategory,
+} from "./components/StyledTitles";
 import { Grid, Row, Col } from "./components/StyledGrid";
-import NewItem from "./components/NewItem";
+import { Input } from "./components/StyledInputs";
+import { BtnPrimary } from "./components/StyledButtons";
 import Item from "./components/Item";
 
 function App() {
   const [items, setItems] = useState([]);
+  const [searchItems, setSearchItems] = useState([]);
+  const [searchName, setSearchName] = useState("");
   const [itemToEdit, setItemToEdit] = useState(null);
+
+  /**
+   * Trigger the search whenever the searchName updates AND whenever
+   * items update so that searchItems will include any newly added
+   * items or edited items.
+   */
+  useEffect(() => {
+    if (searchName) {
+      setSearchItems(
+        items.filter((item) =>
+          item.name.toLowerCase().includes(searchName.toLowerCase())
+        )
+      );
+    } else {
+      setSearchItems(items);
+    }
+  }, [items, searchName]);
+
+  function create(e) {
+    e.preventDefault();
+
+    const newItem = {
+      name: searchName,
+      price: 0,
+      quantity: 1,
+      category: "Misc",
+      pending: true,
+    };
+
+    setItems([newItem, ...items]);
+    setSearchName("");
+  }
 
   function togglePending(selectedItem) {
     setItems(
@@ -21,6 +60,10 @@ function App() {
     );
   }
 
+  searchItems.sort((a, b) =>
+    a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+  );
+
   // Since this is a small project, otherwise styled-reset pkg could be used.
   const GlobalStyle = createGlobalStyle`
   * {
@@ -30,48 +73,93 @@ function App() {
   }
 `;
 
-  // To avoid having to both items and setItems as props of NewItem.
-  const addItem = (item) => setItems([item, ...items]);
+  /**
+   * Create a hash table of categories, could be done with a regular loop
+   * instead of .reduce.
+   * {
+   *  "Cat One": [items, ...]
+   *  "Cat Two": [items, ...]
+   * }
+   */
+  const categoryTable = searchItems
+    .filter((item) => item.pending)
+    .reduce((table, item) => {
+      const titleCaseCat = item.category
+        .toLowerCase()
+        .split(" ")
+        .map((word) => word[0].toUpperCase() + word.slice(1))
+        .join(" ");
 
-  items.sort((a, b) =>
-    a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+      if (!table.hasOwnProperty(titleCaseCat)) {
+        table[titleCaseCat] = [];
+      }
+
+      table[titleCaseCat].push(item);
+
+      return table;
+    }, {});
+
+  const alphabeticalCategories = Object.keys(categoryTable).sort((a, b) =>
+    a.localeCompare(b)
   );
 
   return (
     <Container>
       <GlobalStyle />
+
       <Title>Shopping List</Title>
       <hr />
-      <NewItem addItem={addItem} />
       <Grid>
-        <Row>
-          <Col size={0.5}>
-            <TitleBorderBot bottomBorderColor="orange">
-              Pending Items
-            </TitleBorderBot>
-            {items
-              .filter((item) => item.pending)
-              .map((item, i) => (
-                <Row key={i} justifyContent="center">
-                  <div onClick={(e) => togglePending(item)}>
-                    <Item item={item} setItemToEdit={setItemToEdit} />
-                  </div>
-                </Row>
-              ))}
+        <Row justifyContent="center">
+          <Col>
+            <form onSubmit={create}>
+              <Input
+                onChange={(e) => setSearchName(e.target.value)}
+                value={searchName}
+              />
+              <BtnPrimary disabled={searchName.length < 2}>Create</BtnPrimary>
+            </form>
           </Col>
-          <Col size={0.5}>
-            <TitleBorderBot bottomBorderColor="slateblue">
-              Shopping Cart
-            </TitleBorderBot>
-            {items
-              .filter((item) => !item.pending)
-              .map((item, i) => (
-                <Row key={i} justifyContent="center">
-                  <div onClick={(e) => togglePending(item)}>
+        </Row>
+
+        {/* Bottom row of two columns of pending list & crossed off list */}
+        <Row>
+          {/* Pending items */}
+          <Col size={1}>
+            <Title2BorderBot bottomBorderColor="orange">
+              Pending Items
+            </Title2BorderBot>
+
+            {alphabeticalCategories.map((cat, catIdx) => {
+              return (
+                <section key={catIdx}>
+                  <TitleCategory color="orange">{cat}</TitleCategory>
+                  {/* row of category's items */}
+                  <Row>
+                    {categoryTable[cat].map((item, itemIdx) => (
+                      <div key={itemIdx} onClick={(_e) => togglePending(item)}>
+                        <Item item={item} setItemToEdit={setItemToEdit} />
+                      </div>
+                    ))}
+                  </Row>
+                </section>
+              );
+            })}
+          </Col>
+
+          <Col size={1}>
+            <Title2BorderBot bottomBorderColor="slateblue">
+              Pending Items
+            </Title2BorderBot>
+            <Row>
+              {searchItems
+                .filter((item) => !item.pending)
+                .map((item, i) => (
+                  <div key={i} onClick={(_e) => togglePending(item)}>
                     <Item item={item} setItemToEdit={setItemToEdit} />
                   </div>
-                </Row>
-              ))}
+                ))}
+            </Row>
           </Col>
         </Row>
       </Grid>
