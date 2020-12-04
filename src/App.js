@@ -138,7 +138,11 @@ function App() {
                   <Row>
                     {categoryTable[cat].map((item, itemIdx) => (
                       <div key={itemIdx} onClick={(_e) => togglePending(item)}>
-                        <Item item={item} setItemToEdit={setItemToEdit} />
+                        <Item
+                          item={item}
+                          itemToEdit={itemToEdit}
+                          setItemToEdit={setItemToEdit}
+                        />
                       </div>
                     ))}
                   </Row>
@@ -156,7 +160,11 @@ function App() {
                 .filter((item) => !item.pending)
                 .map((item, i) => (
                   <div key={i} onClick={(_e) => togglePending(item)}>
-                    <Item item={item} setItemToEdit={setItemToEdit} />
+                    <Item
+                      item={item}
+                      itemToEdit={itemToEdit}
+                      setItemToEdit={setItemToEdit}
+                    />
                   </div>
                 ))}
             </Row>
