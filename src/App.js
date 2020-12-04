@@ -83,6 +83,8 @@ function App() {
   }
 `;
 
+  let subTotal = 0;
+
   /**
    * Create a hash table of categories, could be done with a regular loop
    * instead of .reduce.
@@ -94,6 +96,8 @@ function App() {
   const categoryTable = searchItems
     .filter((item) => item.pending)
     .reduce((table, item) => {
+      subTotal += item.price;
+
       const titleCaseCat = item.category
         .toLowerCase()
         .split(" ")
@@ -139,6 +143,7 @@ function App() {
             <Title2BorderBot bottomBorderColor="orange">
               Pending Items
             </Title2BorderBot>
+            <small>Subtotal: {subTotal}</small>
 
             {alphabeticalCategories.map((cat, catIdx) => {
               return (
