@@ -51,6 +51,11 @@ function App() {
   }
 
   function togglePending(selectedItem) {
+    // so that clicks while editing don't accidentally move the item to other list
+    if (itemToEdit) {
+      return;
+    }
+
     setItems(
       items.map((item) =>
         item === selectedItem
@@ -58,6 +63,11 @@ function App() {
           : item
       )
     );
+  }
+
+  function saveEdit(originalItem, editedItem) {
+    setItems(items.map((item) => (item === originalItem ? editedItem : item)));
+    setItemToEdit(null);
   }
 
   searchItems.sort((a, b) =>
@@ -142,6 +152,7 @@ function App() {
                           item={item}
                           itemToEdit={itemToEdit}
                           setItemToEdit={setItemToEdit}
+                          saveEdit={saveEdit}
                         />
                       </div>
                     ))}
@@ -164,6 +175,7 @@ function App() {
                       item={item}
                       itemToEdit={itemToEdit}
                       setItemToEdit={setItemToEdit}
+                      saveEdit={saveEdit}
                     />
                   </div>
                 ))}
