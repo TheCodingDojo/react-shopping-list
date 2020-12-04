@@ -6,7 +6,10 @@ export const BtnDefault = styled.button`
   border: 2px solid gray;
   border-radius: 3px;
   background: transparent;
-  margin: 5px;
+  margin-top: 5px;
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
   &:hover {
     background: gray;
   }
